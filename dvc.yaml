@@ -5,7 +5,7 @@ stages:
       --accidents data/AccidentsBig.csv
       --vehicles data/VehiclesBig.csv
       --casualties data/CasualtiesBig.csv
-      --nrows ${NROWS}
+      --nrows 50000
       --output data/processed_accidents.csv
     deps:
       - src/preprocess.py
