@@ -1,0 +1,29 @@
+stages:
+  preprocess:
+    cmd: >
+      python src/preprocess.py
+      --accidents data/AccidentsBig.csv
+      --vehicles data/VehiclesBig.csv
+      --casualties data/CasualtiesBig.csv
+      --nrows ${NROWS}
+      --output data/processed_accidents.csv
+    deps:
+      - src/preprocess.py
+      - data/AccidentsBig.csv
+      - data/VehiclesBig.csv
+      - data/CasualtiesBig.csv
+    outs:
+      - data/processed_accidents.csv
+
+  train:
+    cmd: >
+      python src/train.py
+      --data data/processed_accidents.csv
+      --model_path models/road_accident_model.pkl
+    deps:
+      - src/train.py
+      - data/processed_accidents.csv
+    outs:
+      - models/road_accident_model.pkl
+    metrics:
+      - models/metrics.json
